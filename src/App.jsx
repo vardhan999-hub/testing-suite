@@ -1,8 +1,3 @@
-// src/App.jsx
-// ─────────────────────────────────────────────────────────────
-//  Main App — showcases all tested components in a live demo UI
-//  This is the visual proof that components work in the browser too.
-// ─────────────────────────────────────────────────────────────
 
 import React, { useState } from "react";
 import Button from "./components/Button";
@@ -81,7 +76,6 @@ const dividerStyle = {
   margin: "24px 0",
 };
 
-// ── Form demo state ───────────────────────────────────────────
 
 function FormDemo() {
   const [name, setName] = useState("");
@@ -155,7 +149,7 @@ function FormDemo() {
   );
 }
 
-// ── Main App ──────────────────────────────────────────────────
+
 
 function App() {
   return (
