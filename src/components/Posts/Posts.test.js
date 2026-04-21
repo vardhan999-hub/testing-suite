@@ -1,20 +1,6 @@
-// src/components/Posts/Posts.test.js
-// ─────────────────────────────────────────────────────────────
-//  Tests for the Posts component (Level 3 – Advanced)
-//
-//  KEY CONCEPT: We MOCK global.fetch so the test never hits the internet.
-//  global.fetch is set up in setupTests.js as jest.fn().
-//  Each test below controls exactly what fetch "returns."
-// ─────────────────────────────────────────────────────────────
-
 import { render, screen, waitFor } from "@testing-library/react";
 import Posts from "./Posts";
 
-// ── Helpers to build mock fetch responses ─────────────────────
-
-/**
- * Makes global.fetch resolve with a successful JSON response.
- */
 function mockFetchSuccess(data) {
   global.fetch.mockResolvedValueOnce({
     ok: true,
@@ -23,9 +9,7 @@ function mockFetchSuccess(data) {
   });
 }
 
-/**
- * Makes global.fetch resolve with a non-ok HTTP response (e.g. 500).
- */
+
 function mockFetchHttpError(status = 500) {
   global.fetch.mockResolvedValueOnce({
     ok: false,
@@ -34,14 +18,12 @@ function mockFetchHttpError(status = 500) {
   });
 }
 
-/**
- * Makes global.fetch reject entirely (network down / no internet).
- */
+
 function mockFetchNetworkError(message = "Network Error") {
   global.fetch.mockRejectedValueOnce(new Error(message));
 }
 
-// ── Sample data ───────────────────────────────────────────────
+
 
 const MOCK_POSTS = [
   { id: 1, title: "First Post Title", body: "Body of first post." },
@@ -49,13 +31,13 @@ const MOCK_POSTS = [
   { id: 3, title: "Third Post Title", body: "Body of third post." },
 ];
 
-// ── Level 3: Mocked API Tests ─────────────────────────────────
+
 
 describe("Posts – Mocked API (Level 3)", () => {
-  // ── Loading state ──
+  
 
   test("shows loading indicator immediately on mount", () => {
-    // Give fetch a promise that never resolves so we can catch the loading state
+    
     global.fetch.mockReturnValueOnce(new Promise(() => {}));
 
     render(<Posts />);
@@ -66,23 +48,22 @@ describe("Posts – Mocked API (Level 3)", () => {
     );
   });
 
-  // ── Success state ──
+  
 
   test("renders post cards after a successful fetch", async () => {
     mockFetchSuccess(MOCK_POSTS);
 
     render(<Posts />);
 
-    // ── Transition: loading → resolved ────────────────────────
-    // First, the loading indicator must be present while fetch is in-flight
+    
     expect(screen.getByTestId("loading-indicator")).toBeInTheDocument();
 
-    // Then, once fetch resolves, it must disappear — proves state lifecycle
+    
     await waitFor(() => {
       expect(screen.queryByTestId("loading-indicator")).not.toBeInTheDocument();
     });
 
-    // Finally, the real content must be visible
+    
     expect(screen.getByTestId("posts-list")).toBeInTheDocument();
     expect(screen.getAllByTestId("post-card")).toHaveLength(3);
   });
@@ -129,14 +110,13 @@ describe("Posts – Mocked API (Level 3)", () => {
 
     render(<Posts />);
 
-    // findByText is async — waits for the DOM to update after fetch resolves.
-    // /no posts/i is an accessible text query, not an internal testId.
+   
     const message = await screen.findByText(/no posts/i);
     expect(message).toBeInTheDocument();
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 
-  // ── Error state ──
+  
 
   test("shows error message when fetch rejects (network error)", async () => {
     mockFetchNetworkError("Network Error");
@@ -175,14 +155,12 @@ describe("Posts – Mocked API (Level 3)", () => {
       expect(screen.getByTestId("error-message")).toBeInTheDocument();
     });
 
-    // Stronger assertion — proves the error message text is correct,
-    // not just that something rendered
     expect(screen.getByTestId("error-message")).toHaveTextContent(/network error/i);
     expect(screen.queryByTestId("posts-list")).not.toBeInTheDocument();
     expect(screen.queryAllByTestId("post-card")).toHaveLength(0);
   });
 
-  // ── Verify no real network calls ──
+  
 
   test("fetch mock is used — no real network call is made", async () => {
     mockFetchSuccess(MOCK_POSTS);
@@ -192,9 +170,7 @@ describe("Posts – Mocked API (Level 3)", () => {
     await waitFor(() =>
       expect(screen.queryByTestId("loading-indicator")).not.toBeInTheDocument()
     );
-
-    // If fetch was a real call it would fail in the Jest/jsdom environment.
-    // This assertion proves the mock intercepted it.
+   
     expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 });
