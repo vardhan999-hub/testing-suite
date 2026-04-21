@@ -1,25 +1,15 @@
-// src/components/Button/Button.test.js
-// ─────────────────────────────────────────────────────────────
-//  Tests for the Button component
-//  Covers: Level 1 (render, props) + Level 2 (interaction)
-//
-//  ✅ Uses getByRole("button", { name: /label/i }) throughout
-//     — the RTL-recommended accessible selector, not getByTestId.
-//     This tests the way real users and screen-readers experience
-//     the component, not just internal implementation details.
-// ─────────────────────────────────────────────────────────────
+
 
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Button from "./Button";
 
-// ── Level 1: Render & Props ───────────────────────────────────
+
 
 describe("Button – Render & Props (Level 1)", () => {
   test("renders without crashing", () => {
     render(<Button label="Click Me" />);
-    // getByRole("button") finds a real <button> element — same way
-    // a screen-reader would locate it.
+    
     expect(screen.getByRole("button", { name: /click me/i })).toBeInTheDocument();
   });
 
@@ -44,7 +34,7 @@ describe("Button – Render & Props (Level 1)", () => {
   });
 });
 
-// ── Level 2: Interaction Testing ──────────────────────────────
+
 
 describe("Button – Interaction (Level 2)", () => {
   test("calls onClick handler when clicked", async () => {
@@ -61,21 +51,19 @@ describe("Button – Interaction (Level 2)", () => {
     const user = userEvent.setup();
     const handleClick = jest.fn();
 
-    // getByRole still finds the button even when disabled — and
-    // userEvent correctly refuses to click a disabled element.
+    
     render(<Button label="Disabled" onClick={handleClick} disabled={true} />);
     await user.click(screen.getByRole("button", { name: /disabled/i }));
 
     expect(handleClick).not.toHaveBeenCalled();
   });
 
-  // ── Point D: explicit negative interaction (edge-case thinking) ──
+ 
   test("does not trigger click when disabled", async () => {
     const user = userEvent.setup();
     const handleClick = jest.fn();
 
-    // getByRole finds the button by its accessible name — no testId needed.
-    // userEvent correctly refuses to fire a click on a disabled element.
+   
     render(<Button label="Click" onClick={handleClick} disabled />);
     await user.click(screen.getByRole("button", { name: /click/i }));
 
