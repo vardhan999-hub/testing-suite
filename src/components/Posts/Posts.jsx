@@ -1,14 +1,3 @@
-// src/components/Posts/Posts.jsx
-// ─────────────────────────────────────────────────────────────
-//  Posts component — fetches data from an API
-//  This is the Level 3 component: its fetch() call gets MOCKED in tests
-//  so tests never hit the real network.
-//
-//  Props:
-//    apiUrl – the endpoint to fetch posts from
-//            (default: "https://jsonplaceholder.typicode.com/posts?_limit=5")
-// ─────────────────────────────────────────────────────────────
-
 import React, { useState, useEffect } from "react";
 
 const containerStyle = {
@@ -66,7 +55,7 @@ function Posts({ apiUrl = DEFAULT_URL }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    let cancelled = false; // prevents state updates on unmounted component
+    let cancelled = false; 
 
     setLoading(true);
     setError(null);
