@@ -1,30 +1,21 @@
-// src/components/Counter/Counter.test.js
-// ─────────────────────────────────────────────────────────────
-//  Tests for the Counter component
-//  Covers: Level 1 (render) + Level 2 (click interactions, state changes)
-//
-//  ✅ 100% accessibility-first selectors — zero getByTestId:
-//     • Buttons  → getByRole("button", { name: /increment|decrement|reset/i })
-//     • Value    → getByRole("status")  (aria-live="polite" region)
-//     • Wrapper  → getByRole("group",  { name: /counter/i })
-// ─────────────────────────────────────────────────────────────
+
 
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Counter from "./Counter";
 
-// ── Level 1: Render & Props ───────────────────────────────────
+
 
 describe("Counter – Render & Props (Level 1)", () => {
   test("renders without crashing", () => {
     render(<Counter />);
-    // group role wraps the whole counter widget — accessible to AT users
+    
     expect(screen.getByRole("group", { name: /counter/i })).toBeInTheDocument();
   });
 
   test("displays the initial value of 0 by default", () => {
     render(<Counter />);
-    // status role = aria-live region — screen readers announce value changes
+   
     expect(screen.getByRole("status")).toHaveTextContent("0");
   });
 
@@ -51,7 +42,6 @@ describe("Counter – Render & Props (Level 1)", () => {
   });
 });
 
-// ── Level 2: Interaction – button clicks change state ─────────
 
 describe("Counter – Interaction (Level 2)", () => {
   test("clicking Increment changes count from 0 to 1", async () => {
@@ -102,8 +92,8 @@ describe("Counter – Interaction (Level 2)", () => {
     render(<Counter initialValue={9} max={10} />);
 
     const incrementBtn = screen.getByRole("button", { name: /increment/i });
-    await user.click(incrementBtn); // → 10
-    await user.click(incrementBtn); // stays at 10 — button goes disabled
+    await user.click(incrementBtn); 
+    await user.click(incrementBtn); 
 
     expect(screen.getByRole("status")).toHaveTextContent("10");
     expect(screen.getByRole("button", { name: /increment/i })).toBeDisabled();
