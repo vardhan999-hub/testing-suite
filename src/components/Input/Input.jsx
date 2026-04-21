@@ -1,15 +1,3 @@
-// src/components/Input/Input.jsx
-// ─────────────────────────────────────────────────────────────
-//  Reusable controlled Input component
-//  Props:
-//    label       – label text shown above the field
-//    value       – current value (controlled)
-//    onChange    – change handler
-//    placeholder – placeholder text
-//    error       – error message string (shown below input in red)
-//    type        – input type (default: "text")
-//    disabled    – boolean
-// ─────────────────────────────────────────────────────────────
 
 import React from "react";
 
