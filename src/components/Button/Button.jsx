@@ -1,12 +1,3 @@
-// src/components/Button/Button.jsx
-// ─────────────────────────────────────────────────────────────
-//  Reusable Button component
-//  Props:
-//    label     – text shown inside the button
-//    onClick   – click handler
-//    variant   – "primary" | "secondary" | "danger"  (default: "primary")
-//    disabled  – boolean
-// ─────────────────────────────────────────────────────────────
 
 import React from "react";
 
