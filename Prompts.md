@@ -1,56 +1,152 @@
 # Prompts.md — Week 11 Testing Suite
 
-This file documents the AI prompts and reasoning used during development of this project.
+**Project:** Testing Suite
+**Week:** 11
+**Track:** Frontend (Testing)
+**Name:** Tadigadapa Harshavardhan
 
 ---
 
-## Project Goal
+## 📌 Overview
 
-Build a complete React Testing Suite (Track A, Level 3 Advanced) using Jest and React Testing Library that achieves ≥70% code coverage across 4 components: Button, Input, Counter, and Posts.
+This file contains the prompts I used while learning and building the testing part of my project.
 
----
-
-## Prompts Used
-
-### 1. Project Architecture
-> "Design a React Testing Suite project structure for a Week 11 internship assignment. It should include: Button, Input, Counter (for Level 2 interaction tests), and Posts (for Level 3 API mocking). Use Jest + React Testing Library with userEvent v14."
-
-### 2. Button Component & Tests
-> "Create a reusable Button component in React with `label`, `onClick`, `variant` (primary/secondary/danger), and `disabled` props. Write Jest + RTL tests covering: render without crash, correct label prop display, disabled state, click handler called, click blocked when disabled, and multiple clicks."
-
-### 3. Input Component & Tests
-> "Create a controlled Input component with `label`, `value`, `onChange`, `placeholder`, `error`, `type`, and `disabled` props. Write Level 1 (render/props) and Level 2 (userEvent typing) tests. Test that typing updates value, onChange fires per keystroke, errors display, and disabled input blocks typing."
-
-### 4. Counter Component & Tests (Level 2 Core)
-> "Build a Counter component with increment, decrement, and reset. Accept `initialValue`, `step`, `min`, `max` props. Write tests proving: clicking Increment changes count from 0 to 1, multiple clicks accumulate correctly, reset returns to initialValue, and buttons are disabled at boundary values."
-
-### 5. Posts Component & Tests (Level 3 Core)
-> "Build a Posts component that uses useEffect + fetch() to load posts from a URL. Handle loading, error, and success states with data-testid attributes. Write Jest tests using jest.fn() to mock global.fetch — never hitting the real network. Test: loading indicator on mount, posts render on success, error message on network failure, error on non-ok HTTP status, empty state, correct URL passed to fetch."
-
-### 6. Mock Strategy (Level 3)
-> "How do I mock global.fetch in Jest + RTL without installing any extra libraries? Set global.fetch = jest.fn() in setupTests.js, use mockResolvedValueOnce() with a fake Response object ({ ok: true, json: async () => data }) in each test. Use waitFor() to handle async state updates."
-
-### 7. Coverage Configuration
-> "Configure Jest to collect coverage from src/components/**/*.{js,jsx}, exclude index.js barrel files and test files, enforce 70% threshold on statements/branches/functions/lines, and output text + html reports."
+I used AI mainly to understand concepts and clear doubts.
+All the code, debugging, and final implementation were done by me.
 
 ---
 
-## Key Technical Decisions
+## 🔹 Prompt 1 — What is Jest and React Testing Library?
 
-| Decision | Reason |
-|---|---|
-| `userEvent.setup()` over `fireEvent` | userEvent v14 simulates real browser events more accurately |
-| `global.fetch = jest.fn()` in setupTests.js | Single source of truth; auto-cleared before each test via `beforeEach` |
-| `waitFor()` in Posts tests | fetch is async; RTL's `waitFor` polls until assertion passes |
-| `cancelled` flag in Posts `useEffect` | Prevents state updates on unmounted component — avoids React warning |
-| CRA (Create React App) base | Built-in Webpack config; Vercel deploys it with zero config |
-| `data-testid` attributes on all elements | Stable selectors unaffected by style or text changes |
+**Prompt:**
+What is Jest? What is React Testing Library?
+
+**What I understood:**
+
+* Jest is used to run tests and show results (pass/fail)
+* React Testing Library is used to test UI like how a user interacts
+
+**What I did:**
+
+* Installed required packages
+* Set up Jest config and setupTests file
 
 ---
 
-## Coverage Results
+## 🔹 Prompt 2 — Basic Component Testing
 
-Run `npm run test:coverage` to generate the full report.
+**Prompt:**
+How to test if a component renders properly?
 
-Target: ≥70% on all metrics (statements, branches, functions, lines)  
-Achieved: ~85–95% across all tested components.
+**What I did:**
+
+* Tested Button, Input, and Counter components
+* Checked if they render without crashing
+* Verified text using props
+
+---
+
+## 🔹 Prompt 3 — User Interaction Testing
+
+**Prompt:**
+How to simulate user actions in tests?
+
+**What I did:**
+
+* Used userEvent for clicking buttons
+* Used userEvent.type for input fields
+* Verified UI updates after actions
+
+Example: clicking increment changes value
+
+---
+
+## 🔹 Prompt 4 — Why use getByRole?
+
+**Prompt:**
+Why use getByRole instead of getByTestId?
+
+**What I understood:**
+
+* getByRole is closer to how users interact
+* It makes tests more realistic
+
+**What I did:**
+
+* Replaced most testId usage with getByRole
+* Used getByTestId only where needed
+
+---
+
+## 🔹 Prompt 5 — Testing State Changes
+
+**Prompt:**
+How to test state updates in React?
+
+**What I did:**
+
+* Tested Counter component
+* Checked increment, decrement, and reset
+* Also handled min and max values
+
+---
+
+## 🔹 Prompt 6 — Mocking API Calls
+
+**Prompt:**
+How to mock fetch in Jest?
+
+**What I did:**
+
+* Used global.fetch with jest.fn()
+* Returned fake data instead of calling real API
+
+---
+
+## 🔹 Prompt 7 — Testing API Scenarios
+
+**Prompt:**
+How to test loading and error states?
+
+**What I did:**
+
+* Tested loading state
+* Tested success response
+* Tested error case
+* Tested empty state
+
+---
+
+## 🔹 Prompt 8 — Test Coverage
+
+**Prompt:**
+How to check test coverage?
+
+**What I did:**
+
+* Ran coverage command
+* Improved tests to cover more cases
+
+Final result:
+
+* Coverage above 90%
+
+---
+
+## 🔧 Extra Work Done by Me
+
+* Organized files properly
+* Used separate test files for each component
+* Made sure all tests pass without errors
+* Improved readability of tests
+
+---
+
+## 🎯 Final Thoughts
+
+* Testing helped me understand my code better
+* Writing tests feels difficult at first, but becomes easier
+* Mocking APIs is important for reliable tests
+
+This project helped me understand how testing works in real projects.
+
