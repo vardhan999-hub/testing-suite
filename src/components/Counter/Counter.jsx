@@ -1,12 +1,3 @@
-// src/components/Counter/Counter.jsx
-// ─────────────────────────────────────────────────────────────
-//  Counter component — the perfect Level 2 interaction target
-//  Props:
-//    initialValue – starting count  (default: 0)
-//    step         – amount to inc/dec (default: 1)
-//    min          – minimum allowed value (default: 0)
-//    max          – maximum allowed value (default: 10)
-// ─────────────────────────────────────────────────────────────
 
 import React, { useState } from "react";
 
